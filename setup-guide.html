@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complaint-Mining Product Builder — Setup Guide</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f13;
+      color: #e2e2e8;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border: 1px solid #2a2a4a;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header .tagline {
+      color: #7c8cf8;
+      font-size: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #7c8cf820;
+      border: 1px solid #7c8cf840;
+      color: #7c8cf8;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: #16161e;
+      border: 1px solid #2a2a3a;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7c8cf8;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .step:last-child { margin-bottom: 0; }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      background: #7c8cf820;
+      border: 1px solid #7c8cf840;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #7c8cf8;
+      margin-top: 2px;
+    }
+
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: #9090a8;
+      margin-bottom: 8px;
+    }
+
+    pre {
+      background: #0a0a10;
+      border: 1px solid #2a2a3a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 13px;
+      color: #a8d8a8;
+      overflow-x: auto;
+      margin-top: 8px;
+      white-space: pre;
+    }
+
+    .note {
+      background: #7c8cf808;
+      border-left: 3px solid #7c8cf8;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #9090a8;
+      margin-top: 8px;
+    }
+
+    .commands-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .command-item {
+      background: #0a0a10;
+      border: 1px solid #2a2a3a;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .command-item .cmd-label {
+      font-size: 12px;
+      color: #7c8cf8;
+      margin-bottom: 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .command-item code {
+      font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 13px;
+      color: #a8d8a8;
+      display: block;
+    }
+
+    .command-item .cmd-desc {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .what-it-does {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .what-it-does { grid-template-columns: 1fr; }
+    }
+
+    .feature-item {
+      background: #0a0a10;
+      border: 1px solid #2a2a3a;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .feature-item .icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .feature-item h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .feature-item p {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .repo-link {
+      display: block;
+      text-align: center;
+      background: #7c8cf815;
+      border: 1px solid #7c8cf830;
+      border-radius: 10px;
+      padding: 16px;
+      color: #7c8cf8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .repo-link:hover {
+      background: #7c8cf825;
+    }
+
+    .footer {
+      text-align: center;
+      color: #444;
+      font-size: 12px;
+      margin-top: 32px;
+    }
+
+    .highlight { color: #a8d8a8; }
+    .dim { color: #555; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <h1>Complaint-Mining Product Builder</h1>
+      <p class="tagline">Converts user complaints into startup opportunities using Claude AI</p>
+      <span class="badge">Setup Guide</span>
+    </div>
+
+    <!-- What it does -->
+    <div class="card">
+      <h2>What It Does</h2>
+      <div class="what-it-does">
+        <div class="feature-item">
+          <span class="icon">🔍</span>
+          <h4>Mine Complaints</h4>
+          <p>Analyzes Reddit, reviews, forums, and SaaS communities to surface the top frustrations in any product space.</p>
+        </div>
+        <div class="feature-item">
+          <span class="icon">💡</span>
+          <h4>Find Market Gaps</h4>
+          <p>Identifies where existing solutions fail and quantifies the opportunity size (TAM/SAM).</p>
+        </div>
+        <div class="feature-item">
+          <span class="icon">🚀</span>
+          <h4>Generate Startups</h4>
+          <p>Produces ranked startup ideas with confidence scores, revenue potential, and difficulty estimates.</p>
+        </div>
+        <div class="feature-item">
+          <span class="icon">📋</span>
+          <h4>Build MVP Specs</h4>
+          <p>Creates complete specs: features, pricing tiers, go-to-market plan, and week-one action items.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prerequisites -->
+    <div class="card">
+      <h2>Prerequisites</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Python 3.9+</h3>
+          <p>Check if you have it:</p>
+          <pre>python --version</pre>
+          <div class="note">If not installed, download from python.org</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Git</h3>
+          <p>Check if you have it:</p>
+          <pre>git --version</pre>
+          <div class="note">If not installed, download from git-scm.com</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Anthropic API Key</h3>
+          <p>Get one at console.anthropic.com — you'll need a free account. The key looks like <code style="color:#7c8cf8;font-family:monospace">sk-ant-...</code></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Installation -->
+    <div class="card">
+      <h2>Installation (Windows PowerShell)</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Clone the repository</h3>
+          <pre>git clone https://github.com/iamprentice/Orchestrator.git
+cd Orchestrator</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Install dependencies</h3>
+          <pre>pip install -r requirements.txt</pre>
+          <div class="note">This installs Claude AI SDK, Rich (terminal UI), Typer (CLI), Pydantic, and more.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Set up your API key</h3>
+          <p>Copy the example config file:</p>
+          <pre>Copy-Item .env.example .env</pre>
+          <p>Then open <code style="color:#7c8cf8;font-family:monospace">.env</code> in Notepad and replace the placeholder:</p>
+          <pre>notepad .env</pre>
+          <p>Change this line:</p>
+          <pre><span class="dim">ANTHROPIC_API_KEY=</span><span class="highlight">sk-ant-your-key-here</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commands -->
+    <div class="card">
+      <h2>Commands</h2>
+      <div class="commands-grid">
+        <div class="command-item">
+          <div class="cmd-label">Full Pipeline (recommended)</div>
+          <code>python main.py full "project management software"</code>
+          <div class="cmd-desc">Runs all three stages and saves a JSON report to ./output/</div>
+        </div>
+        <div class="command-item">
+          <div class="cmd-label">Step 1 — Analyze Complaints</div>
+          <code>python main.py analyze "CRM software"</code>
+          <div class="cmd-desc">Top frustrations, market gaps, TAM/SAM</div>
+        </div>
+        <div class="command-item">
+          <div class="cmd-label">Step 2 — Generate Opportunities</div>
+          <code>python main.py opportunities "email marketing"</code>
+          <div class="cmd-desc">Ranked startup ideas with confidence scores</div>
+        </div>
+        <div class="command-item">
+          <div class="cmd-label">Step 3 — Build MVP Spec</div>
+          <code>python main.py mvp "project management software"</code>
+          <div class="cmd-desc">Pricing tiers, GTM plan, week-one actions</div>
+        </div>
+        <div class="command-item">
+          <div class="cmd-label">Save output to JSON</div>
+          <code>python main.py full "your niche" --save</code>
+          <div class="cmd-desc">Saves full report to ./output/full_report_your_niche.json</div>
+        </div>
+        <div class="command-item">
+          <div class="cmd-label">With live Reddit scraping</div>
+          <code>python main.py full "your niche" --reddit</code>
+          <div class="cmd-desc">Requires Reddit API credentials in .env (optional)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub -->
+    <div class="card">
+      <h2>Source Code</h2>
+      <p style="font-size:14px;color:#9090a8;margin-bottom:12px;">Full source code is on GitHub. You can review, fork, or contribute.</p>
+      <a class="repo-link" href="https://github.com/iamprentice/Orchestrator">
+        github.com/iamprentice/Orchestrator →
+      </a>
+    </div>
+
+    <div class="footer">
+      Built with Claude AI (claude-opus-4-8) &nbsp;·&nbsp; Anthropic SDK &nbsp;·&nbsp; Python
+    </div>
+
+  </div>
+</body>
+</html>
